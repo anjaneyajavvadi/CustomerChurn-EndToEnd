@@ -1,0 +1,33 @@
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs and temporary files
+*.log
+logs/
+
+# Virtual environments
+venv/
+.env
+
+# Git and notebooks
+.git/
+.notebooks/
+*.ipynb_checkpoints/
+
+# Kaggle credentials
+kaggle.json
+
+# Data and models (artifacts)
+src/artifacts/
+data/
+datasets/
+*.csv
+*.pkl
+*.joblib
+
+# OS-specific files
+.DS_Store
+Thumbs.db
