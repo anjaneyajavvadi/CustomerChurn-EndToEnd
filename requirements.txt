@@ -7,3 +7,7 @@ xgboost
 catboost
 dill
 kaggle
+fastapi
+jinja2
+python-multipart
+uvicorn
