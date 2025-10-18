@@ -205,3 +205,25 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+
+# ============================
+# Custom project artifacts
+# ============================
+
+# Ignore all generated artifacts, models, and transformed data
+src/artifacts/
+src/models/
+src/data/
+*.csv
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.npy
+*.npz
+
+# Ignore logs
+logs/
+*.log
+
