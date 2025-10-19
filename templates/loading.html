@@ -20,5 +20,16 @@
     <h2>No model found — training in progress</h2>
     <div class="spinner"></div>
     <p>Please wait a few minutes and refresh the page once training is complete.</p>
+    <script>
+        // Poll server every 5 seconds
+        async function checkStatus() {
+            const response = await fetch("/status");
+            const data = await response.json();
+            if (!data.training_in_progress) {
+                window.location.reload();
+            }
+        }
+        setInterval(checkStatus, 5000);
+    </script>
 </body>
 </html>

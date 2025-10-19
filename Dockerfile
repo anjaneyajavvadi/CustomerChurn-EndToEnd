@@ -1,28 +1,41 @@
-# Use lightweight Python image
-FROM python:3.10-slim
+# 1️⃣ Base image
+FROM python:3.11-slim
 
-# Copy environment variables
-ENV KAGGLE_USERNAME=${KAGGLE_USERNAME}
-ENV KAGGLE_KEY=${KAGGLE_KEY}
+# 2️⃣ Environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV KAGGLE_USERNAME=your_kaggle_username
+ENV KAGGLE_KEY=your_kaggle_key
 
-
-# Set working directory inside container
+# 3️⃣ Working directory
 WORKDIR /app
 
-# Copy requirements file first (for Docker layer caching)
-COPY requirements.txt .
+# 4️⃣ System dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    wget \
+    unzip \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install dependencies
+# 5️⃣ Copy requirements and install
+COPY requirements.txt .
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the entire project into the container
+# 6️⃣ Copy project files
 COPY . .
 
-# Expose the FastAPI port
+# 7️⃣ Create artifacts folders
+RUN mkdir -p src/artifacts/data \
+    src/artifacts/ingested \
+    src/artifacts/models \
+    src/artifacts/transformed \
+    src/artifacts/logs
+
+
+#  Expose FastAPI port
 EXPOSE 8000
 
-# Prevent Python output buffering
-ENV PYTHONUNBUFFERED=1
-
-# Run the FastAPI app
+#  Run FastAPI with Uvicorn
 CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000"]

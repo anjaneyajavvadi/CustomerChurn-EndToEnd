@@ -94,3 +94,8 @@ async def predict(
             "prediction": f"Error: {e}",
             "probability": "N/A"
         })
+
+
+@app.get("/status")
+async def status():
+    return {"training_in_progress": training_in_progress}
